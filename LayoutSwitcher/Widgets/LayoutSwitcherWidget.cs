@@ -11,7 +11,7 @@ using Umbra.Widgets;
 namespace Umbra.SamplePlugin.Widgets;
 
 [ToolbarWidget(
-    "LayoutPlugin.LayoutWidget",
+    "LayoutSwitcher",
     "Layout Switcher",
     "Let's you change your HUD Layout easily"
 )]

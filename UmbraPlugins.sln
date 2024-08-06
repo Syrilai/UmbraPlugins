@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LayoutSwitcher", "LayoutSwitcher\LayoutSwitcher.csproj", "{8639917C-99CB-429A-B4FA-F1F0C32CDC8E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversalCommandInput", "UniversalCommandInput\UniversalCommandInput.csproj", "{298EEBE8-8838-4E46-AE55-3C6B9300A790}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8639917C-99CB-429A-B4FA-F1F0C32CDC8E}.Debug|x64.ActiveCfg = Debug|x64
+		{8639917C-99CB-429A-B4FA-F1F0C32CDC8E}.Debug|x64.Build.0 = Debug|x64
+		{8639917C-99CB-429A-B4FA-F1F0C32CDC8E}.Release|x64.ActiveCfg = Release|x64
+		{8639917C-99CB-429A-B4FA-F1F0C32CDC8E}.Release|x64.Build.0 = Release|x64
+		{298EEBE8-8838-4E46-AE55-3C6B9300A790}.Debug|x64.ActiveCfg = Debug|x64
+		{298EEBE8-8838-4E46-AE55-3C6B9300A790}.Debug|x64.Build.0 = Debug|x64
+		{298EEBE8-8838-4E46-AE55-3C6B9300A790}.Release|x64.ActiveCfg = Release|x64
+		{298EEBE8-8838-4E46-AE55-3C6B9300A790}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7AB5538F-1B77-4FF2-8E97-7234C5419542}
+	EndGlobalSection
+EndGlobal
