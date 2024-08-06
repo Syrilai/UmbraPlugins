@@ -105,7 +105,6 @@ public class LayoutSwitcherWidget(
 
             if (getFilePointerPtr != IntPtr.Zero)
             {
-                ToastGui.ShowNormal("Found pointer");
                 _getFilePointer = Marshal.GetDelegateForFunctionPointer<GetFilePointerDelegate>(getFilePointerPtr);
             }
         } catch (Exception) {
@@ -123,7 +122,7 @@ public class LayoutSwitcherWidget(
 
         if (theBuildingIsOnFire)
         {
-            SetLabel("Layout Plugin Unavailable");
+            SetLabel("Layout Switcher Unavailable");
             SetDisabled(true);
             return;
         }
