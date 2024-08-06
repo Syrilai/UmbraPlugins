@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 using Dalamud.Game;
 using Dalamud.Game.Text.SeStringHandling;
+using Dalamud.Interface;
 using Dalamud.Plugin.Services;
 using Umbra.Common;
 using Umbra.Game;
@@ -41,37 +43,81 @@ public class LayoutSwitcherWidget(
                 "Decorate the widget",
                 "Whether to decorate the widget with a background and border.",
                 true
-            ),
+            ) {
+                Category = "General"
+            },
             new BooleanWidgetConfigVariable(
                 "Icon", 
                 "Show Icon", 
                 "Whether to show the left icon or not.", 
                 true
-            ),
+            ) {
+                Category = "General"
+            },
             new BooleanWidgetConfigVariable(
                 "ShowSlot0",
                 "Show Slot 1",
                 "Wether Layout Slot 1 should be shown as an option.",
                 true
-            ),
+            ) {
+                Category = "Widget"
+            },
+            new StringWidgetConfigVariable(
+                "Slot0Label",
+                "Slot 1 Label",
+                "The label for Slot 1.",
+                "Layout 1"
+            ) {
+                Category = "Widget"
+            },
             new BooleanWidgetConfigVariable(
                 "ShowSlot1",
                 "Show Slot 2",
                 "Wether Layout Slot 2 should be shown as an option.",
                 true
-            ),
+            ) {
+                Category = "Widget"
+            },
+            new StringWidgetConfigVariable(
+                "Slot1Label",
+                "Slot 2 Label",
+                "The label for Slot 2.",
+                "Layout 2"
+            ) {
+                Category = "Widget"
+            },
             new BooleanWidgetConfigVariable(
                 "ShowSlot2",
                 "Show Slot 3",
                 "Wether Layout Slot 3 should be shown as an option.",
                 true
-            ),
+            ) {
+                Category = "Widget"
+            },
+            new StringWidgetConfigVariable(
+                "Slot2Label",
+                "Slot 3 Label",
+                "The label for Slot 3.",
+                "Layout 3"
+            ) {
+                Category = "Widget"
+            },
             new BooleanWidgetConfigVariable(
                 "ShowSlot3",
                 "Show Slot 4",
                 "Wether Layout Slot 4 should be shown as an option.",
                 true
-            )
+            ) {
+                Category = "Widget"
+            },
+            new StringWidgetConfigVariable(
+                "Slot3Label",
+                "Slot 4 Label",
+                "The label for Slot 4.",
+                "Layout 4"
+            ) {
+                Category = "Widget"
+            },
         ];
     }
 
@@ -130,9 +176,10 @@ public class LayoutSwitcherWidget(
         for (var i = 0; i <= 3; i++)
         {
             var userShownI = i + 1;
+            var layoutSlotName = GetConfigValue<string>($"Slot{i}Label");
             Popup.AddButton(
                 $"Layout{i}",
-                label: $"Layout {userShownI}",
+                label: layoutSlotName,
                 onClick: () => ChatSender.Send($"/hudlayout {userShownI}")
              );
         }
@@ -153,10 +200,11 @@ public class LayoutSwitcherWidget(
         for (int i = 0; i <= 3; i++)
         {
             var isEnabled = GetConfigValue<bool>($"ShowSlot{i}");
+            var isActive = activeHudSlot == i;
             var userShownI = i + 1;
             if (isEnabled)
             {
-                if (activeHudSlot == i)
+                if (isActive)
                     seStringBuilder.AddUiForeground($"{userShownI}", 31);
                 else
                     seStringBuilder.AddUiForeground($"{userShownI}", 3);
@@ -164,7 +212,11 @@ public class LayoutSwitcherWidget(
 
             if (!Popup.IsOpen) continue;
 
+            var layoutSlotName = GetConfigValue<string>($"Slot{i}Label");
+
             Popup.SetButtonVisibility($"Layout{i}", isEnabled);
+            Popup.SetButtonLabel($"Layout{i}", layoutSlotName);
+            Popup.SetButtonIcon($"Layout{i}", isActive ? FontAwesomeIcon.Star : null);
         }
 
         SetLabel(
