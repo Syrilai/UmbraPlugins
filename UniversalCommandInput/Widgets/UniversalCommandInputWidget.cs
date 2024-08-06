@@ -122,8 +122,8 @@ public class LayoutSwitcherWidget(
 
     private Node? GetPopupNode()
     {
-        var popupNode = Popup.GetType().BaseType!
-                        .GetProperty("Node", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!
+        var popupNode = Popup.GetType().BaseType?
+                        .GetProperty("Node", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)?
                         .GetValue(Popup) as Node;
 
         return popupNode;
@@ -131,8 +131,8 @@ public class LayoutSwitcherWidget(
 
     private void ClosePopup()
     {
-        Popup.GetType().BaseType!
-            .GetMethod("Close", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!
+        Popup.GetType().BaseType?
+            .GetMethod("Close", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)?
             .Invoke(Popup, null);
     }
 
