@@ -42,10 +42,18 @@ public class LayoutSwitcherWidget(
                 Category = "General",
             },
             new BooleanWidgetConfigVariable(
-                "Icon", 
+                "ShowIcon", 
                 "Show Icon", 
                 "Whether to show the left icon or not.", 
-                true
+                false
+            ) {
+                Category = "General"
+            },
+            new IntegerWidgetConfigVariable(
+                "IconId",
+                "Icon ID",
+                "The icon to display on the left side of the widget. You can get this via /xldata icons.",
+                0
             ) {
                 Category = "General"
             },
@@ -72,6 +80,8 @@ public class LayoutSwitcherWidget(
     protected override void Initialize()
     {
         SetLabel(GetConfigValue<string>("ToolbarText"));
+        SetGhost(!GetConfigValue<bool>("Decorate"));
+        SetLeftIcon(GetConfigValue<bool>("ShowIcon") ? (uint)GetConfigValue<int>("IconId") : null);
 
         inputNode = new StringInputNode("Prefix", "", 128, null, null, 0, false);
 
@@ -139,6 +149,8 @@ public class LayoutSwitcherWidget(
     protected override void OnUpdate()
     {
         SetLabel(GetConfigValue<string>("ToolbarText"));
+        SetGhost(!GetConfigValue<bool>("Decorate"));
+        SetLeftIcon(GetConfigValue<bool>("ShowIcon") ? (uint)GetConfigValue<int>("IconId") : null);
         Popup.SetButtonLabel("CurrentPrefix", label: $"Command: {GetConfiguredCommand()}");
         Popup.SetButtonIcon("CurrentPrefix", null);
     }
