@@ -60,7 +60,7 @@ public class LayoutSwitcherWidget(
             new StringWidgetConfigVariable(
                 "Prefix",
                 "Command",
-                "What command should be ran with the given input.",
+                "What command should be ran with the given input. A / is automatically added at the start if none is entered.",
                 "/"
             ) {
                 Category = "Widget"
@@ -89,12 +89,19 @@ public class LayoutSwitcherWidget(
         {
             if (string.IsNullOrEmpty(value.Trim())) return;
 
-            var commandPrefix = GetConfigValue<string>("Prefix");
-            if (!commandPrefix.StartsWith('/')) {
-                commandPrefix = "/" + commandPrefix; 
-            }
+            var command = GetConfiguredCommand();
 
-            ChatSender.Send(commandPrefix + " " + value);
+            // Apparently if the user decides to just have a /
+            // and use this as pure command input, we should
+            // rather not just add a space after.. lol
+            if (command == "/")
+            {
+                ChatSender.Send(command + value);
+            }
+            else
+            {
+                ChatSender.Send(command + " " + value);
+            }
 
             inputNode.Value = "";
             ClosePopup();
@@ -151,13 +158,20 @@ public class LayoutSwitcherWidget(
         SetLabel(GetConfigValue<string>("ToolbarText"));
         SetGhost(!GetConfigValue<bool>("Decorate"));
         SetLeftIcon(GetConfigValue<bool>("ShowIcon") ? (uint)GetConfigValue<int>("IconId") : null);
-        Popup.SetButtonLabel("CurrentPrefix", label: $"Command: {GetConfiguredCommand()}");
-        Popup.SetButtonIcon("CurrentPrefix", null);
+        var configuredCommand = GetConfiguredCommand();
+        if (configuredCommand == "/")
+        {
+            Popup.SetButtonLabel("CurrentPrefix", label: $"Acting as a command input");
+        } 
+        else
+        {
+            Popup.SetButtonLabel("CurrentPrefix", label: $"Command: '{GetConfiguredCommand()}'");
+        }
     }
 
     private string GetConfiguredCommand()
     {
-        var configuredPrefix = GetConfigValue<string>("Prefix");
+        var configuredPrefix = GetConfigValue<string>("Prefix").TrimStart();
 
         if (!configuredPrefix.StartsWith('/'))
         {

@@ -8,6 +8,7 @@
         <!-- If you have Umbra installed through Dalamud, you can leave this as-is. -->
         <!-- Credits to Lorosia for the dynamic Umbra folder finding. -->
         <UmbraLibPath>$([System.IO.Directory]::GetDirectories($(appdata)\XIVLauncher\installedPlugins\Umbra\)[0])\</UmbraLibPath>
+		<UmbraLibPathMan>$(appdata)\XIVLauncher\installedPlugins\Umbra\2.2.15.0\</UmbraLibPathMan>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -23,7 +24,7 @@
 
     <PropertyGroup>
         <Authors>Syrilai</Authors>
-        <Version>1.0.0.1</Version>
+        <Version>1.0.0.2</Version>
         <Description>Yeehaweth</Description>
         <Copyright>(C)2024</Copyright>
         <PackageProjectUrl>https://github.com/una-xiv/umbra</PackageProjectUrl>
