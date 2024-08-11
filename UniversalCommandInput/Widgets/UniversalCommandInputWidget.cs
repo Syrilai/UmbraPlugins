@@ -91,10 +91,10 @@ public class LayoutSwitcherWidget(
 
             var command = GetConfiguredCommand();
 
-            // Apparently if the user decides to just have a /
+            // Apparently if the user decides to just have a '/'
             // and use this as pure command input, we should
             // rather not just add a space after.. lol
-            if (command == "/")
+            if (command.Trim() == "/")
             {
                 ChatSender.Send(command + value);
             }
