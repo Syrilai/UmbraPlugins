@@ -7,15 +7,15 @@
         <!-- Replace this with Umbra's directory is you have a local dev version installed. Mind the trailing backlash. -->
         <!-- If you have Umbra installed through Dalamud, you can leave this as-is. -->
         <!-- Credits to Lorosia for the dynamic Umbra folder finding. -->
-        <UmbraLibPath>$([System.IO.Directory]::GetDirectories($(appdata)\XIVLauncher\installedPlugins\Umbra\)[0])\</UmbraLibPath>
-		<UmbraLibPathMan>$(appdata)\XIVLauncher\installedPlugins\Umbra\2.2.15.0\</UmbraLibPathMan>
+        <UmbraLibPathAut>$([System.IO.Directory]::GetDirectories($(appdata)\XIVLauncher\installedPlugins\Umbra\)[0])\</UmbraLibPathAut>
+		<UmbraLibPath>$(appdata)\XIVLauncher\installedPlugins\Umbra\2.2.35.0\</UmbraLibPath>
     </PropertyGroup>
 
     <PropertyGroup>
         <TargetFramework>net8.0-windows</TargetFramework>
         <Platforms>x64</Platforms>
         <Nullable>enable</Nullable>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>latest</LangVersion> 
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -24,7 +24,7 @@
 
     <PropertyGroup>
         <Authors>Syrilai</Authors>
-        <Version>1.0.0.2</Version>
+        <Version>1.1.0.0</Version>
         <Description>Yeehaweth</Description>
         <Copyright>(C)2024</Copyright>
         <PackageProjectUrl>https://github.com/una-xiv/umbra</PackageProjectUrl>

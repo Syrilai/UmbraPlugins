@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 using Dalamud.Game;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Interface;
-using Dalamud.Plugin.Services;
 using Umbra.Common;
 using Umbra.Game;
 using Umbra.Widgets;
@@ -25,7 +23,6 @@ public class LayoutSwitcherWidget(
 {
     public override MenuPopup Popup { get; } = new();
 
-    private IToastGui ToastGui { get; set; } = Framework.Service<IToastGui>();
     private ISigScanner SigScanner { get; set; } = Framework.Service<ISigScanner>();
     private IChatSender ChatSender { get; set; } = Framework.Service<IChatSender>();
 
@@ -39,28 +36,12 @@ public class LayoutSwitcherWidget(
     {
         return [
             new BooleanWidgetConfigVariable(
-                "Decorate",
-                "Decorate the widget",
-                "Whether to decorate the widget with a background and border.",
-                true
-            ) {
-                Category = "General"
-            },
-            new BooleanWidgetConfigVariable(
-                "Icon", 
-                "Show Icon", 
-                "Whether to show the left icon or not.", 
-                true
-            ) {
-                Category = "General"
-            },
-            new BooleanWidgetConfigVariable(
                 "ShowSlot0",
                 "Show Slot 1",
                 "Wether Layout Slot 1 should be shown as an option.",
                 true
             ) {
-                Category = "Widget"
+                Category = I18N.Translate("Widget.ConfigCategory.WidgetAppearance")
             },
             new StringWidgetConfigVariable(
                 "Slot0Label",
@@ -68,7 +49,7 @@ public class LayoutSwitcherWidget(
                 "The label for Slot 1.",
                 "Layout 1"
             ) {
-                Category = "Widget"
+                Category = I18N.Translate("Widget.ConfigCategory.WidgetAppearance")
             },
             new BooleanWidgetConfigVariable(
                 "ShowSlot1",
@@ -76,7 +57,7 @@ public class LayoutSwitcherWidget(
                 "Wether Layout Slot 2 should be shown as an option.",
                 true
             ) {
-                Category = "Widget"
+                Category = I18N.Translate("Widget.ConfigCategory.WidgetAppearance")
             },
             new StringWidgetConfigVariable(
                 "Slot1Label",
@@ -84,7 +65,7 @@ public class LayoutSwitcherWidget(
                 "The label for Slot 2.",
                 "Layout 2"
             ) {
-                Category = "Widget"
+                Category = I18N.Translate("Widget.ConfigCategory.WidgetAppearance")
             },
             new BooleanWidgetConfigVariable(
                 "ShowSlot2",
@@ -92,7 +73,7 @@ public class LayoutSwitcherWidget(
                 "Wether Layout Slot 3 should be shown as an option.",
                 true
             ) {
-                Category = "Widget"
+                Category = I18N.Translate("Widget.ConfigCategory.WidgetAppearance")
             },
             new StringWidgetConfigVariable(
                 "Slot2Label",
@@ -100,7 +81,7 @@ public class LayoutSwitcherWidget(
                 "The label for Slot 3.",
                 "Layout 3"
             ) {
-                Category = "Widget"
+                Category = I18N.Translate("Widget.ConfigCategory.WidgetAppearance")
             },
             new BooleanWidgetConfigVariable(
                 "ShowSlot3",
@@ -108,7 +89,7 @@ public class LayoutSwitcherWidget(
                 "Wether Layout Slot 4 should be shown as an option.",
                 true
             ) {
-                Category = "Widget"
+                Category = I18N.Translate("Widget.ConfigCategory.WidgetAppearance")
             },
             new StringWidgetConfigVariable(
                 "Slot3Label",
@@ -116,8 +97,11 @@ public class LayoutSwitcherWidget(
                 "The label for Slot 4.",
                 "Layout 4"
             ) {
-                Category = "Widget"
+                Category = I18N.Translate("Widget.ConfigCategory.WidgetAppearance")
             },
+            DefaultIconConfigVariable(31),
+            ..DefaultToolbarWidgetConfigVariables,
+            ..SingleLabelTextOffsetVariables
         ];
     }
 
@@ -195,7 +179,7 @@ public class LayoutSwitcherWidget(
         var activeHudSlot = GetActiveHudSlot();
         var seStringBuilder = new SeStringBuilder();
 
-        SetLeftIcon(GetConfigValue<bool>("Icon") ? 31 : null);
+        SetIcon(GetConfigValue<uint>("IconId"));
 
         for (int i = 0; i <= 3; i++)
         {
@@ -222,10 +206,7 @@ public class LayoutSwitcherWidget(
         SetLabel(
             seStringBuilder.Build()
         );
-        SetGhost(!GetConfigValue<bool>("Decorate"));
 
-        if (!Popup.IsOpen) {
-            return;
-        }
+        base.OnUpdate();
     }
 }

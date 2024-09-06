@@ -16,12 +16,11 @@
 
 using System;
 using System.Numerics;
-using Dalamud.Interface.Utility;
 using Dalamud.Logging.Internal;
 using ImGuiNET;
 using Una.Drawing;
 
-namespace Syrilai.UniversalCommandInput.Despair;
+namespace Syrilai.UniversalCommandInput.Nodes;
 
 internal class StringInputNode : Node
 {
