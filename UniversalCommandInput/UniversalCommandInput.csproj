@@ -7,8 +7,7 @@
         <!-- Replace this with Umbra's directory is you have a local dev version installed. Mind the trailing backlash. -->
         <!-- If you have Umbra installed through Dalamud, you can leave this as-is. -->
         <!-- Credits to Lorosia for the dynamic Umbra folder finding. -->
-        <UmbraLibPathAut>$([System.IO.Directory]::GetDirectories($(appdata)\XIVLauncher\installedPlugins\Umbra\)[0])\</UmbraLibPathAut>
-		<UmbraLibPath>$(appdata)\XIVLauncher\installedPlugins\Umbra\2.2.35.0\</UmbraLibPath>
+        <UmbraLibPath>$([System.IO.Directory]::GetDirectories($(appdata)\XIVLauncher\installedPlugins\Umbra\)[0])\</UmbraLibPath>
     </PropertyGroup>
 
     <PropertyGroup>
