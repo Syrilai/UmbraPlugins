@@ -25,14 +25,10 @@ public class LayoutSwitcherWidget(
 {
     public override MenuPopup Popup { get; } = new();
 
-    private ISigScanner SigScanner { get; set; } = Framework.Service<ISigScanner>();
     private IChatSender ChatSender { get; set; } = Framework.Service<IChatSender>();
 
     // Borrowed from https://github.com/zacharied/FFXIV-Plugin-HudManager/blob/testing/HUDManager/Hud.cs
-    private const int FileDataPointerOffset = 0x50;
     private const int DataSlotOffset = 0xCBD0; // Updated 7.1
-    private delegate IntPtr GetFilePointerDelegate(byte index);
-    private GetFilePointerDelegate? _getFilePointer;
 
     protected override IEnumerable<IWidgetConfigVariable> GetConfigVariables()
     {
