@@ -7,6 +7,8 @@ using Dalamud.Interface;
 using Umbra.Common;
 using Umbra.Game;
 using Umbra.Widgets;
+using FFXIVClientStructs.FFXIV.Component.GUI;
+using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 
 namespace Umbra.SamplePlugin.Widgets;
 
@@ -28,7 +30,7 @@ public class LayoutSwitcherWidget(
 
     // Borrowed from https://github.com/zacharied/FFXIV-Plugin-HudManager/blob/testing/HUDManager/Hud.cs
     private const int FileDataPointerOffset = 0x50;
-    private const int DataSlotOffset = 0xC8E0; // Updated 7.0
+    private const int DataSlotOffset = 0xCBD0; // Updated 7.1
     private delegate IntPtr GetFilePointerDelegate(byte index);
     private GetFilePointerDelegate? _getFilePointer;
 
@@ -106,16 +108,9 @@ public class LayoutSwitcherWidget(
     }
 
     // Borrowed from https://github.com/zacharied/FFXIV-Plugin-HudManager/blob/testing/HUDManager/Hud.cs
-    public IntPtr GetDataPointer()
+    public static unsafe IntPtr GetDataPointer()
     {
-        var dataPtr = GetFilePointer(0) + FileDataPointerOffset;
-        return Marshal.ReadIntPtr(dataPtr);
-    }
-
-    // Borrowed from https://github.com/zacharied/FFXIV-Plugin-HudManager/blob/testing/HUDManager/Hud.cs
-    public IntPtr GetFilePointer(byte index)
-    {
-        return _getFilePointer?.Invoke(index) ?? IntPtr.Zero;
+        return (nint)AddonConfig.Instance()->ModuleData;
     }
 
     // Borrowed from https://github.com/zacharied/FFXIV-Plugin-HudManager/blob/testing/HUDManager/Hud.cs
@@ -129,18 +124,6 @@ public class LayoutSwitcherWidget(
     /// <inheritdoc/>
     protected override void Initialize()
     {
-        try
-        {
-            var getFilePointerPtr = SigScanner.ScanText("E8 ?? ?? ?? ?? 48 85 C0 74 14 83 7B 44 00");
-
-            if (getFilePointerPtr != IntPtr.Zero)
-            {
-                _getFilePointer = Marshal.GetDelegateForFunctionPointer<GetFilePointerDelegate>(getFilePointerPtr);
-            }
-        } catch (Exception) {
-            theBuildingIsOnFire = true;
-        }
-
         try
         {
             GetActiveHudSlot();
